@@ -1,3 +1,6 @@
 Changes in SQUAREM version 2010.8-1 
 
    o	first release:  August 8, 2010
+
+   o	second release:  August 9, 2010
+		- fixed a bug in `cyclem1' and `cyclem2' that croped up when testing under Windows 64-bit.  This was due to QR-decomposition using LAPACK.  

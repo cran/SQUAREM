@@ -168,7 +168,7 @@ c(t(ans3$par) %*% bodewig.mat %*% ans3$par) / c(crossprod(ans3$par))
 The convergence is dramatically faster now, but it converges to the second dominant eigenvector.  We try again with a higher-order SQUAREM scheme.
 
 \begin{Scode} 
-# Second-order SQUAREM
+# Third-order SQUAREM
 ans4 <- squarem(p0, fixptfn=power.method, A=bodewig.mat, control=list(K=3, method="rre"))
 ans4
 ans4$par <- ans4$par / sqrt(sum(ans4$par^2))

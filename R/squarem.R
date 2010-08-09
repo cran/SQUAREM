@@ -9,6 +9,7 @@ squarem <- function(par, fixptfn, objfn, ... , control=list()) {
 # See Roland, Varadhan and Frangakis (Applied Numerical Mathematics 2007)
 #
 # Last modified: June 25, 2010
+# Last modified: August 09, 2010
 #######################################################################
 #
 # par = starting value of parameter vector
@@ -343,16 +344,22 @@ while (feval < maxiter & res > tol) {
 
 	if (method == "rre"){
 	coef <- try(solve(qr(crossprod(U), LAPACK=TRUE, tol=1.e-14), rep(1,K+1)), silent=TRUE)
-	if (class(coef) == "try-error") extrap <- FALSE
-	if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
-	coef <- coef/sum(coef)
+	if (class(coef) == "try-error" | any(is.nan(coef)) ) {
+		extrap <- FALSE
+	} else {
+		if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
+		coef <- coef/sum(coef)
+		}
 	}
 	if (method == "mpe"){
 	coef <- try(solve(qr(U[,-(K+1)], LAPACK=TRUE, tol=1.e-14), -U[,K+1]), silent=TRUE)
-	if (class(coef) == "try-error") extrap <- FALSE
-	coef <- c(coef, 1)
-	if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
-	coef <- coef/sum(coef)
+	if (class(coef) == "try-error" | any(is.nan(coef))) {
+		extrap <- FALSE
+	} else {
+		coef <- c(coef, 1)
+		if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
+		coef <- coef/sum(coef)
+		}
 	}
 
 	if (!extrap) {
@@ -474,16 +481,22 @@ while (feval < maxiter & res > tol) {
 
 	if (method == "rre"){
 	coef <- try(solve(qr(crossprod(U), LAPACK=TRUE, tol=1.e-14), rep(1,K+1)), silent=TRUE)
-	if (class(coef) == "try-error") extrap <- FALSE
-	if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
-	coef <- coef/sum(coef)
+	if (class(coef) == "try-error" | any(is.nan(coef))) {
+		extrap <- FALSE
+	} else {
+		if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
+		coef <- coef/sum(coef)
+		}
 	}
 	if (method == "mpe"){
 	coef <- try(solve(qr(U[,-(K+1)], LAPACK=TRUE, tol=1.e-14), -U[,K+1]), silent=TRUE)
-	if (class(coef) == "try-error") extrap <- FALSE
-	coef <- c(coef, 1)
-	if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
-	coef <- coef/sum(coef)
+	if (class(coef) == "try-error" | any(is.nan(coef))) {
+		extrap <- FALSE
+	} else {
+		coef <- c(coef, 1)
+		if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
+		coef <- coef/sum(coef)
+		}
 	}
 
 	if (!extrap) {
