@@ -78,8 +78,6 @@ ctrl <- modifyList(control.default, control)
 # setting objfn.inc=0 would enforce monotonicity, whereas objfn.inc=Inf would be a non-monotonic scheme
 # The defalut objfn.inc=1 would enforce monotonicity far from solution, but allows for non-monotonicity closer to solution
 #
-cat("Squarem-1 \n")
-
     method <- ctrl$method
     maxiter <- ctrl$maxiter
     tol <- ctrl$tol
@@ -89,6 +87,8 @@ cat("Squarem-1 \n")
     mstep <- ctrl$mstep
     objfn.inc <- ctrl$objfn.inc
     trace <- ctrl$trace
+
+if (trace) cat("Squarem-1 \n")
 
 if (missing(objfn)) stop("\n squarem2 should be used if objective function is not available \n\n")
 
@@ -199,8 +199,6 @@ ctrl <- modifyList(control.default, control)
 # Parameter "kr" dictates the amount of non-monotonicity in the fixed-point residual 
 # setting kr=0 would try to enforce monotonicity; kres=Inf would be a non-monotonic scheme
 #
-cat("Squarem-2 \n")
-
     method <- ctrl$method
     maxiter <- ctrl$maxiter
     tol <- ctrl$tol
@@ -210,6 +208,7 @@ cat("Squarem-2 \n")
     step.max <- ctrl$step.max0
     mstep <- ctrl$mstep
     trace <- ctrl$trace
+if (trace) cat("Squarem-2 \n")
 
 iter <- 1
 feval <- 0
@@ -301,8 +300,6 @@ ctrl <- modifyList(control.default, control)
 # K = order of extrapolation scheme; K=2,3,4 are typical choices
 # square = a logical variable indicating whether or not "squaring" is used
 
-cat("Cyclem-1 \n")
-
     method <- ctrl$method
     K <- ctrl$K
     square <- ctrl$square
@@ -310,7 +307,8 @@ cat("Cyclem-1 \n")
     maxiter <- ctrl$maxiter
     objfn.inc <- ctrl$objfn.inc
     trace <- ctrl$trace
- 
+ if (trace) cat("Cyclem-1 \n")
+
 if (missing(objfn)) stop("\n cyclem2 should be used if objective function is not available \n\n")
 
 if ( K > length(par)) {
@@ -443,8 +441,6 @@ ctrl <- modifyList(control.default, control)
 # K = order of extrapolation scheme; K=2,3,4 are typical choices
 # square = a logical variable indicating whether or not "squaring" is used
 
-cat("Cyclem-2 \n")
-
     method <- ctrl$method
     K <- ctrl$K
     square <- ctrl$square
@@ -452,7 +448,8 @@ cat("Cyclem-2 \n")
     maxiter <- ctrl$maxiter
     kr <- ctrl$kr
     trace <- ctrl$trace
- 
+ if (trace) cat("Cyclem-2 \n")
+
 if ( K > length(par)) {
 cat("K is too large.  Decrease it.  \n")
 return()
@@ -571,11 +568,11 @@ ctrl <- modifyList(control.default, control)
 # K = order of extrapolation scheme; K=2,3,4 are typical choices
 # square = a logical variable indicating whether or not "squaring" is used
 
-cat("fpiter \n")
-
     tol <- ctrl$tol
     maxiter <- ctrl$maxiter
     trace <- ctrl$trace
+
+if (trace) cat("fpiter \n")
 
 iter <- 1
 resid <- rep(NA,1)
