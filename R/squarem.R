@@ -10,6 +10,7 @@ squarem <- function(par, fixptfn, objfn, ... , control=list()) {
 #
 # Last modified: June 25, 2010
 # Last modified: August 09, 2010
+# Last modified: December 31, 2010
 #######################################################################
 #
 # par = starting value of parameter vector
@@ -162,7 +163,7 @@ while (feval < maxiter) {
 	iter <- iter+1
 	
 }
-	if (feval > maxiter) conv <- FALSE
+	if (feval >= maxiter) conv <- FALSE
 	if (is.infinite(objfn.inc)) {
 		lold <- objfn(p, ...)
 		leval <- leval + 1
@@ -268,7 +269,7 @@ while (feval < maxiter) {
 	par <- p.new
 	iter <- iter+1
 }
-	if (feval > maxiter) conv <- FALSE
+	if (feval >= maxiter) conv <- FALSE
 
 return(list(par=par, value.objfn=NA, iter = iter, fpevals=feval, objfevals = 0, convergence=conv))
 
@@ -410,7 +411,7 @@ while (feval < maxiter & res > tol) {
  	if (trace) cat(" objective fn: ", lold, "extrapolation: ", extrap, "\n")
 }  # Main loop complete
 
-	if (feval > maxiter) conv <- FALSE
+	if (feval >= maxiter) conv <- FALSE
 
 return(list(par=par, value.objfn=lold, iter = iter, fpevals=feval, objfevals = leval, convergence=conv))
 
@@ -546,7 +547,7 @@ while (feval < maxiter & res > tol) {
  	if (trace) cat(" residual: ", res, "extrapolation: ", extrap, "\n")
 
 }  # Main loop complete
-	if (feval > maxiter) conv <- FALSE
+	if (feval >= maxiter) conv <- FALSE
 
 return(list(par=par, value.objfn=NA, iter = iter, fpevals=feval, objfevals = 0, convergence=conv))
 

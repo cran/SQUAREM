@@ -70,8 +70,7 @@ return(pnew)
 }
 \end{Scode}
 
-Objective function whose local minimum is a fixed point
-negative log-likelihood of binary poisson mixture.
+Objective function whose local minimum is a fixed point. Here it is the negative log-likelihood of binary poisson mixture.
 
 \begin{Scode}
 poissmix.loglik <- function(p,y) {
@@ -99,7 +98,7 @@ pf2
 
 Note the dramatically faster convergence, i.e. SQUAREM uses only 72 fixed-point evaluations to achieve convergence.  This is a speed up of a factor of 40.  
 
-We can also run SQUAREM without specifying an objective function, i.e. the log-likelihood.  \emph{This is usually the most efficient way to use SQUAREM.}
+We can also run SQUAREM without specifying an objective function, i.e. the negative log-likelihood.  \emph{This is usually the most efficient way to use SQUAREM.}
 
 \begin{Scode}
 pf3 <- squarem(p=p0, y=y, fixptfn=poissmix.em, control=list(tol=tol))

@@ -13,7 +13,7 @@ setRNG(list(kind="Wichmann-Hill", normal.kind="Box-Muller", seed=123))
 p0 <- c(runif(1),runif(2,0,4))    
 
 # fixptfn = function that computes a single update of fixed-point iteration
-# objfn = underlying objective function that needs to be maximized
+# objfn = underlying objective function that needs to be minimized  (here it is the negative log-likelihood)
 #
 
 # EM algorithm

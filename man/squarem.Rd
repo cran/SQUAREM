@@ -28,7 +28,7 @@ Fixed-Point Iterations}
       a ''merit'' function which attains its local minimum at the fixed-point 
       of \eqn{F}{F}.  This function should accept a parameter vector as 
       input and should return a scalar value.  In the EM algorithm, the merit 
-      function \eqn{L}{L} is the log-likelihood. In some problems, a natural 
+      function \eqn{L}{L} is the negative of log-likelihood. In some problems, a natural 
       merit function may not exist, in which case the algorithm works with 
       only \code{fixptfn}. The merit function function \code{objfn} does not 
       have to be specified, even when a natural merit function is available, 
