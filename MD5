@@ -1,0 +1,13 @@
+f6c3021331463ca71fe810afef9d37cc *DESCRIPTION
+468621463b67d2550f83e1ab8e5fa0fd *LICENSE
+9f7794ebc218c8c81529c6d1e9d1f4e6 *NAMESPACE
+159af5477d11ad9a3c4207e29104c10a *NEWS
+4deecf284597832e565caf4048be12ac *R/squarem.R
+bd07645139967cf47380f58f721e885a *demo/00Index
+10ee5e811a748995a8bac01698a4769b *demo/squarem.R
+a534a17f88b5de643ced93f6a918b13b *inst/doc/SQUAREM.Stex
+8edf4db3e9f58447d11c253c7c7eed02 *inst/doc/SQUAREM.pdf
+778a2817677e49dc2cc02cbfd90ed15e *man/fpiter.Rd
+5e20cf3815fe69aeb603d6ffbda9b82f *man/internal.Rd
+7be7a1d831e40346c0665545c7ff00c7 *man/squarem.Rd
+1f6e68e9322bd524f4db846a970670f0 *tests/Hasselblad1969.R

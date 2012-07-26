@@ -1,6 +1,6 @@
 Package: SQUAREM
-Version: 2010.12-1
-Date: December 31, 2010
+Version: 2012.7-1
+Date: July 26, 2012
 Title: Squared extrapolation methods for accelerating fixed-point
         iterations
 Description: Algorithms for accelerating the convergence of slow,
@@ -15,10 +15,9 @@ Suggests: setRNG
 LazyLoad: yes
 License: GPL (>= 2)
 Author: Ravi Varadhan
-Maintainer: Ravi Varadhan <rvaradhan@jhmi.edu> and Paul Gilbert
-        <pgilbert@bank-banque-canada.ca>
+Maintainer: Ravi Varadhan <rvaradhan@jhmi.edu>
 URL:
         http://www.jhsph.edu/agingandhealth/People/Faculty_personal_pages/Varadhan.html
-Packaged: 2010-12-31 19:45:37 UTC; varadhan
+Packaged: 2012-07-26 15:51:32 UTC; rvaradh1
 Repository: CRAN
-Date/Publication: 2011-01-03 12:28:40
+Date/Publication: 2012-07-26 16:20:32
