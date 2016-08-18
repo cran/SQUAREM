@@ -1,1 +1,5 @@
-squarem 	Examples of Poisson mixture estimation using Hasselblad 1969 data.
+poissonmix	Examples of EM acceleration for Poisson mixture estimation using Hasselblad 1969 data.
+factoranalysis	Examples of EM acceleration for Factor Analysis Maximum Likelihood Estimation.
+intcensoring	Examples of Interval Censoring NPML Estimation.
+mmlogistic	Examples of MM acceleration for Logistics Regression Maximum Likelihood Estimation.
+squarem	Examples of EM acceleration and Power method

@@ -14,4 +14,5 @@ Log of changes to SQUAREM
 
    o	Fifth release:  August 10, 2016
 	- created vignettes with several examples showing how to accelerate convergence using SQUAREM
+	- created demo examples showing how to use SQUAREM to accelerate convergence
 

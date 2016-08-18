@@ -1,9 +1,13 @@
-6a26481d3b854226a088bd1b423050d9 *DESCRIPTION
+11cdfdd87d678855a71f6748f92130d0 *DESCRIPTION
 a62319b6c4374fd15963266db928a1fc *NAMESPACE
-6fb88db22a20ce2ddd2d561dafe40d77 *NEWS
+2a271d6f403c5033aa98bc0b541c99ce *NEWS
 4deecf284597832e565caf4048be12ac *R/squarem.R
-6b9542de0a9a25856f1b8a506b1c2279 *build/vignette.rds
-bd07645139967cf47380f58f721e885a *demo/00Index
+89a50db60db762cd74cbf9828bf59aa3 *build/vignette.rds
+4eb525977b2cd840efcd384cada97dff *demo/00Index
+e9d96e883c5df20e8c2d17534694552a *demo/factoranalysis.R
+09c8ce3e8c82d148cf2d3073aaeaaaf2 *demo/intcensoring.R
+1110df9f82effb00b6ac3f9e9f7d008d *demo/mmlogistic.R
+35f1a8868409a54f65372a12f4ef5a6a *demo/poissonmix.R
 10ee5e811a748995a8bac01698a4769b *demo/squarem.R
 4df21965b20b54fd14215afe50bff3e4 *inst/doc/SQUAREM.R
 2188cbd735ae2a14b9349e3a0cce7d82 *inst/doc/SQUAREM.Rnw

@@ -1,6 +1,6 @@
 Package: SQUAREM
-Version: 2016.8-1
-Date: 2016-08-12
+Version: 2016.8-2
+Date: 2016-08-17
 Title: Squared Extrapolation Methods for Accelerating EM-Like Monotone
         Algorithms
 Description: Algorithms for accelerating the convergence of slow,
@@ -20,5 +20,5 @@ URL:
         http://www.jhsph.edu/agingandhealth/People/Faculty_personal_pages/Varadhan.html
 Repository: CRAN
 NeedsCompilation: no
-Packaged: 2016-08-12 15:35:54 UTC; rvaradh1
-Date/Publication: 2016-08-12 23:58:31
+Packaged: 2016-08-18 16:13:21 UTC; rvaradh1
+Date/Publication: 2016-08-18 23:27:39
