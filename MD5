@@ -1,7 +1,7 @@
-11cdfdd87d678855a71f6748f92130d0 *DESCRIPTION
+8ec392dc0fdaf7e9dd3fb6bf0078e155 *DESCRIPTION
 a62319b6c4374fd15963266db928a1fc *NAMESPACE
-2a271d6f403c5033aa98bc0b541c99ce *NEWS
-4deecf284597832e565caf4048be12ac *R/squarem.R
+a39e4248f18529f3e611a9473668e7a4 *NEWS
+65ce64e4ceeb44c1d90f4f39de46ec97 *R/squarem.R
 89a50db60db762cd74cbf9828bf59aa3 *build/vignette.rds
 4eb525977b2cd840efcd384cada97dff *demo/00Index
 e9d96e883c5df20e8c2d17534694552a *demo/factoranalysis.R
@@ -16,4 +16,4 @@ eb8f4465158c6426ffcd3fcd94a93ef1 *inst/doc/SQUAREM.pdf
 5e20cf3815fe69aeb603d6ffbda9b82f *man/internal.Rd
 7be7a1d831e40346c0665545c7ff00c7 *man/squarem.Rd
 1f6e68e9322bd524f4db846a970670f0 *tests/Hasselblad1969.R
-10d32648d1d422aa4aeecff94362b554 *vignettes/SQUAREM.Rnw
+8baa991f5faaaabb04be226d2aac8db0 *vignettes/SQUAREM.Rnw

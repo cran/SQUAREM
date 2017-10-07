@@ -21,7 +21,7 @@ squarem <- function(par, fixptfn, objfn, ... , control=list()) {
 #
 #
 control.default <- list(K = 1, method=3, square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1,
-	tol=1.e-07, maxiter=1500, trace=FALSE)
+	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 namc <- names(control)
 if (!all(namc %in% names(control.default))) 
     stop("unknown names in control: ", namc[!(namc %in% names(control.default))])
@@ -62,7 +62,7 @@ squarem1 <- function(par, fixptfn, objfn, ... , control=list()) {
 #
 #
 control.default <- list(K=1, square=TRUE, method=3, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
-	tol=1.e-07, maxiter=1500, trace=FALSE)
+	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
 if (!all(namc %in% names(control.default))) 
@@ -88,6 +88,7 @@ ctrl <- modifyList(control.default, control)
     mstep <- ctrl$mstep
     objfn.inc <- ctrl$objfn.inc
     trace <- ctrl$trace
+    intermed <- ctrl$intermed
 
 if (trace) cat("Squarem-1 \n")
 
@@ -102,6 +103,7 @@ leval <- 1
 if (trace) cat("Objective fn: ", lold, "\n")
 feval <- 0
 conv <- TRUE
+p.inter <- c(p, lold)
 
 while (feval < maxiter) {
 	extrap <- TRUE
@@ -160,8 +162,9 @@ while (feval < maxiter) {
 	p <- p.new
 	if (!is.nan(lnew)) lold <- lnew 
 	if (trace) cat("Objective fn: ", lnew, "  Extrapolation: ", extrap, "  Steplength: ", alpha, "\n")
-	iter <- iter+1
-	
+  if(intermed) p.inter <- rbind(p.inter, c(p, lnew))
+
+	iter <- iter+1	
 }
 	if (feval >= maxiter) conv <- FALSE
 	if (is.infinite(objfn.inc)) {
@@ -169,9 +172,9 @@ while (feval < maxiter) {
 		leval <- leval + 1
 		}
 
-
-return(list(par=p, value.objfn=lold, iter= iter, fpevals=feval, objfevals = leval, convergence=conv))
-
+rownames(p.inter) <- NULL
+if (!intermed) return(list(par=p, value.objfn=lold, iter= iter, fpevals=feval, objfevals = leval, convergence=conv))
+   else return(list(par=p, value.objfn=lold, iter= iter, fpevals=feval, objfevals = leval, convergence=conv, p.inter=p.inter))
 }
 ###################################################################
 squarem2 <- function(par, fixptfn, ... , control=list() ) {
@@ -184,7 +187,7 @@ squarem2 <- function(par, fixptfn, ... , control=list() ) {
 # See Varadhan and Roland (Scandinavian J Statistics 2008)
 #
 control.default <- list(K=1, square=TRUE, method=3, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
-	tol=1.e-07, maxiter=1500, trace=FALSE)
+	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
 if (!all(namc %in% names(control.default))) 
@@ -289,7 +292,7 @@ cyclem1 <- function(par, fixptfn, objfn, control=list(), ...) {
 # objfn = underlying objective function which is minimized at x*
 # 
 control.default <- list(K=2, method="rre", square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
-	tol=1.e-07, maxiter=1500, trace=FALSE)
+	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
 if (!all(namc %in% names(control.default))) 
@@ -430,7 +433,7 @@ cyclem2 <- function(par, fixptfn, control=list(), ...) {
 # method = reduced-rank or minimal-polynomial extrapolation
 #
 control.default <- list(K=2, method="rre", square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
-	tol=1.e-07, maxiter=1500, trace=FALSE)
+	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
 if (!all(namc %in% names(control.default))) 

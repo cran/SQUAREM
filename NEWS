@@ -16,3 +16,6 @@ Log of changes to SQUAREM
 	- created vignettes with several examples showing how to accelerate convergence using SQUAREM
 	- created demo examples showing how to use SQUAREM to accelerate convergence
 
+   o   	October 19, 2016
+	- return intermediate parameter vector and merit function values
+
