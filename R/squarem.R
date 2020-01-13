@@ -109,14 +109,14 @@ while (feval < maxiter) {
 	extrap <- TRUE
 	p1 <- try(fixptfn(p, ...),silent=TRUE)
 	feval <- feval + 1
-	if (class(p1) == "try-error" | any(is.nan(unlist(p1)))) stop("Error in function evaluation")
+	if (inherits(p1, "try-error") | any(is.nan(unlist(p1)))) stop("Error in function evaluation")
 	q1 <- p1 - p
 	sr2 <- crossprod(q1)
 	if (sqrt(sr2) < tol) break
 
 	p2 <- try(fixptfn(p1, ...),silent=TRUE)
 	feval <- feval + 1
-	if (class(p2) == "try-error" | any(is.nan(unlist(p2)))) stop("Error in function evaluation")
+	if (inherits(p2, "try-error") | any(is.nan(unlist(p2)))) stop("Error in function evaluation")
 
 	q2 <- p2 - p1
 	sq2 <- sqrt(crossprod(q2))
@@ -133,7 +133,7 @@ while (feval < maxiter) {
 		feval <- feval + 1
 	}
 
-	if (class(p.new) == "try-error" | any(is.nan(p.new))) {
+	if (inherits(p.new, "try-error") | any(is.nan(p.new))) {
 	p.new <- p2
 	lnew <- try(objfn(p2, ...), silent=TRUE)
 	leval <- leval + 1
@@ -145,7 +145,7 @@ while (feval < maxiter) {
 			lnew <- try(objfn(p.new, ...), silent=TRUE)
 			leval <- leval + 1
 		} else lnew <- lold
-		if (class(lnew) == "try-error" | is.nan(lnew) | 
+		if (inherits(lnew, "try-error") | is.nan(lnew) | 
 		(lnew > lold + objfn.inc)) {
 			p.new <- p2
 			lnew <- try(objfn(p2, ...), silent=TRUE)
@@ -223,14 +223,14 @@ while (feval < maxiter) {
 	extrap <- TRUE
 	p1 <- try(fixptfn(par, ...),silent=TRUE)
 	feval <- feval + 1
-	if (class(p1) == "try-error" | any(is.nan(unlist(p1)))) break
+	if (inherits(p1, "try-error") | any(is.nan(unlist(p1)))) break
 	q1 <- p1 - par
 	sr2 <- crossprod(q1)
 	if (sqrt(sr2) < tol) break
 
 	p2 <- try(fixptfn(p1, ...),silent=TRUE)
 	feval <- feval + 1
-	if (class(p2) == "try-error" | any(is.nan(unlist(p2)))) break
+	if (inherits(p2, "try-error") | any(is.nan(unlist(p2)))) break
 	q2 <- p2 - p1
 	sq2 <- sqrt(crossprod(q2))
 	res <- sq2
@@ -246,7 +246,7 @@ while (feval < maxiter) {
 	if (abs(alpha - 1) > 0.01 ) {
 	ptmp <- try(fixptfn(p.new, ...),silent=TRUE)   # stabilization step
 	feval <- feval + 1
-		if (class(ptmp) == "try-error" | any(is.nan(unlist(ptmp))) ) {
+		if (inherits(ptmp, "try-error") | any(is.nan(unlist(ptmp))) ) {
 		p.new <- p2
 		if (alpha == step.max) step.max <- max(step.max0, step.max/mstep)
 		alpha <- 1 
@@ -338,7 +338,7 @@ while (feval < maxiter & res > tol) {
 	p[,1] <- par
 	for (i in 2:(K+2)){
 	p[,i] <- try(fixptfn(p[,i-1], ...), silent=TRUE)
-	if (class(p[,i]) == "try-error" | any(is.nan(unlist(p[,i]))) | any(!is.numeric(p[,i]))) stop("Error in function evaluation \n")
+	if (inherits(p[,i], "try-error") | any(is.nan(unlist(p[,i]))) | any(!is.numeric(p[,i]))) stop("Error in function evaluation \n")
 	U[,i-1] <- p[, i] - p[, i-1]
 	}
 	feval <- feval + K + 1 
@@ -346,7 +346,7 @@ while (feval < maxiter & res > tol) {
 
 	if (method == "rre"){
 	coef <- try(solve(qr(crossprod(U), LAPACK=TRUE, tol=1.e-14), rep(1,K+1)), silent=TRUE)
-	if (class(coef) == "try-error" | any(is.nan(coef)) ) {
+	if (inherits(coef, "try-error") | any(is.nan(coef)) ) {
 		extrap <- FALSE
 	} else {
 		if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
@@ -355,7 +355,7 @@ while (feval < maxiter & res > tol) {
 	}
 	if (method == "mpe"){
 	coef <- try(solve(qr(U[,-(K+1)], LAPACK=TRUE, tol=1.e-14), -U[,K+1]), silent=TRUE)
-	if (class(coef) == "try-error" | any(is.nan(coef))) {
+	if (inherits(coef, "try-error") | any(is.nan(coef))) {
 		extrap <- FALSE
 	} else {
 		coef <- c(coef, 1)
@@ -378,7 +378,7 @@ while (feval < maxiter & res > tol) {
 		if (K > 1) {
 		for (i in 1:(K-1)) {
 			p <- try(cbind(p, fixptfn(p[,i+K+1],...)), silent=TRUE)
-			if (class(p) == "try-error" | any(is.nan(unlist(p))) | any(!is.numeric(p)))  stop("Error in function evaluation \n")
+			if (inherits(p, "try-error")| any(is.nan(unlist(p))) | any(!is.numeric(p)))  stop("Error in function evaluation \n")
 			}
 		feval <- feval + K - 1
 		}
@@ -395,7 +395,7 @@ while (feval < maxiter & res > tol) {
 		res <- sqrt(c(crossprod(ptmp - pnew)))
 		feval <- feval + 1
 		} 
-	if (class(ptmp) == "try-error" | any(is.nan(unlist(ptmp))) ) {
+	if (inherits(ptmp, "try-error") | any(is.nan(unlist(ptmp))) ) {
 		pnew <- p[, ncol(p)]
 		res <- sqKp1
 		extrap <- FALSE
@@ -403,7 +403,7 @@ while (feval < maxiter & res > tol) {
 		
 	lnew <- try(objfn(pnew, ...), silent=TRUE)
 	leval <- leval + 1
-	if (class(lnew) == "try-error" | is.nan(lnew) | (lnew > lold + objfn.inc)) {
+	if (inherits(lnew, "try-error") | is.nan(lnew) | (lnew > lold + objfn.inc)) {
 		pnew <- p[, ncol(p)]
 		res <- sqKp1
 		extrap <- FALSE
@@ -474,7 +474,7 @@ while (feval < maxiter & res > tol) {
 	p[,1] <- par
 	for (i in 2:(K+2)){
 	p[,i] <- try(fixptfn(p[,i-1], ...), silent=TRUE)
-	if (class(p[,i]) == "try-error" | any(is.nan(unlist(p[,i]))) | any(!is.numeric(p[,i]))) stop("Error in function evaluation")
+	if (inherits(p[,i], "try-error") | any(is.nan(unlist(p[,i]))) | any(!is.numeric(p[,i]))) stop("Error in function evaluation")
 	U[,i-1] <- p[, i] - p[, i-1]
 	}
 	feval <- feval + K + 1 
@@ -482,7 +482,7 @@ while (feval < maxiter & res > tol) {
 
 	if (method == "rre"){
 	coef <- try(solve(qr(crossprod(U), LAPACK=TRUE, tol=1.e-14), rep(1,K+1)), silent=TRUE)
-	if (class(coef) == "try-error" | any(is.nan(coef))) {
+	if (inherits(coef, "try-error") | any(is.nan(coef))) {
 		extrap <- FALSE
 	} else {
 		if (abs(sum(coef)) < 1.e-07) extrap <- FALSE
@@ -491,7 +491,7 @@ while (feval < maxiter & res > tol) {
 	}
 	if (method == "mpe"){
 	coef <- try(solve(qr(U[,-(K+1)], LAPACK=TRUE, tol=1.e-14), -U[,K+1]), silent=TRUE)
-	if (class(coef) == "try-error" | any(is.nan(coef))) {
+	if (inherits(coef, "try-error") | any(is.nan(coef))) {
 		extrap <- FALSE
 	} else {
 		coef <- c(coef, 1)
@@ -514,7 +514,7 @@ while (feval < maxiter & res > tol) {
 		if (K > 1) {
 		for (i in 1:(K-1)) {
 			p <- try(cbind(p, fixptfn(p[,i+K+1],...)), silent=TRUE)
-			if (class(p) == "try-error" | any(is.nan(unlist(p))) | any(!is.numeric(p))) stop("Error in function evaluation")
+			if (inherits(p, "try-error") | any(is.nan(unlist(p))) | any(!is.numeric(p))) stop("Error in function evaluation")
 			}
 		feval <- feval + K - 1
 		}
@@ -529,7 +529,7 @@ while (feval < maxiter & res > tol) {
 		ptemp <- try(fixptfn(pnew, ...), silent=TRUE)
 		
       feval <- feval + 1
-	if(class(ptemp)=="try-error" | any(is.nan(ptemp)) ){
+	if(inherits(ptemp, "try-error") | any(is.nan(ptemp)) ){
 		par <- p[, ncol(p)]
 		res <- sqKp1
 		extrap <- FALSE

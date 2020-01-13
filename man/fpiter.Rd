@@ -160,5 +160,7 @@ C Roland, R Varadhan, and CE Frangakis (2007), Squared polynomial extrapolation
    problem, \emph{Numerical Algorithms}, 44:159-172.
 }
 
-\keyword{optimization, EM algorithm}
+
+\concept{EM algorithm}
+\concept{optimization}
 

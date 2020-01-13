@@ -53,6 +53,12 @@ Fixed-Point Iterations}
 \item{convergence}{An integer code indicating type of convergence.  \code{0} 
   indicates successful convergence, whereas \code{1} denotes failure to 
   converge.}
+
+\item{p.inter}{A matrix where each row corresponds to parameters at each iteration, 
+      along with the corresponding log-likelihood value. This object is returned only when 
+      the control parameter \code{intermed} is set to \code{TRUE}.  It is not returned when 
+      \code{objfn} is not specified.}
+
 }
 
 \details{
@@ -70,7 +76,8 @@ Default values of \code{control} are:
     \code{kr=1}, 
     \code{tol=1e-07}, 
     \code{maxiter=1500}, 
-    \code{trace=FALSE}.
+    \code{trace=FALSE},
+    \code{intermed=FALSE}.
 
 \describe{
 \item{\code{K}}{An integer denoting the order of the SQUAREM scheme.
@@ -123,8 +130,14 @@ Default values of \code{control} are:
 	\item{\code{maxiter}}{An integer denoting the maximum limit on the number 
 	  of evaluations of  \code{fixptfn}, \eqn{F}{F}.  Default is 1500.}
 	}
-\item{trace}{A logical variable denoting whether some of the intermediate 
+\item{\code{trace}}{A logical variable denoting whether some of the intermediate 
       results of iterations should be displayed to the user.  
+      Default is \code{FALSE}.}
+\item{\code{intermed}}{A logical variable denoting whether the intermediate 
+      results of iterations should be returned. If set to \code{TRUE}, the function 
+      will return a matrix where each row corresponds to parameters at each iteration, 
+      along with the corresponding log-likelihood value.  This option is inactive when 
+      \code{objfn} is not specified. 
       Default is \code{FALSE}.}
 }
 }
@@ -273,4 +286,5 @@ C Roland, R Varadhan, and CE Frangakis (2007), Squared polynomial
 }
 
 
-\keyword{optimization, EM algorithm}
+\concept{EM algorithm}
+\concept{optimization}

@@ -19,3 +19,5 @@ Log of changes to SQUAREM
    o   	October 19, 2016
 	- return intermediate parameter vector and merit function values
 
+   o   	January 2, 2020
+	- changed code for detecting "try-error" to conform to the changes in latest R release
