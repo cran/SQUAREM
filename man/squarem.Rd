@@ -282,6 +282,10 @@ R Varadhan and C Roland (2008), Simple and globally convergent numerical
 C Roland, R Varadhan, and CE Frangakis (2007), Squared polynomial 
   extrapolation methods with cycling: an application to the positron emission 
   tomography problem, \emph{Numerical Algorithms}, 44:159-172.
+  
+Y Du and R Varadhan (2020), SQUAREM: An R package for off-the-shelf acceleration 
+  of EM, MM, and other EM-like monotone algorithms, \emph{Journal of Statistical Software},
+  92(7): 1-41.  <doi:10.18637/jss.v092.i07>
 
 }
 
