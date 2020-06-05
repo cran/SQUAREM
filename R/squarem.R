@@ -112,7 +112,7 @@ while (feval < maxiter) {
 	if (inherits(p1, "try-error") | any(is.nan(unlist(p1)))) stop("Error in function evaluation")
 	q1 <- p1 - p
 	sr2 <- crossprod(q1)
-	if (sqrt(sr2) < tol) break
+	if (sqrt(sr2) < tol) {p <- p1; break}
 
 	p2 <- try(fixptfn(p1, ...),silent=TRUE)
 	feval <- feval + 1
@@ -120,7 +120,7 @@ while (feval < maxiter) {
 
 	q2 <- p2 - p1
 	sq2 <- sqrt(crossprod(q2))
-	if (sq2 < tol) break
+	if (sq2 < tol) {p <- p2; break}
 	sv2 <- crossprod(q2-q1)
 	srv <- crossprod(q1, q2-q1)
 
@@ -226,7 +226,7 @@ while (feval < maxiter) {
 	if (inherits(p1, "try-error") | any(is.nan(unlist(p1)))) break
 	q1 <- p1 - par
 	sr2 <- crossprod(q1)
-	if (sqrt(sr2) < tol) break
+	if (sqrt(sr2) < tol) {p <- p1; break}
 
 	p2 <- try(fixptfn(p1, ...),silent=TRUE)
 	feval <- feval + 1
@@ -234,7 +234,7 @@ while (feval < maxiter) {
 	q2 <- p2 - p1
 	sq2 <- sqrt(crossprod(q2))
 	res <- sq2
-	if (sq2 < tol) break
+	if (sq2 < tol) {p <- p2; break}
 	sv2 <- crossprod(q2-q1)
 	srv <- crossprod(q1, q2-q1)	
 

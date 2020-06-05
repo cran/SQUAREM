@@ -24,3 +24,6 @@ Log of changes to SQUAREM
 
   o   	February 21, 2020
 	- Added citation information for how to cite the package
+
+  o   	June 04, 2020
+	- Modified the code to output updated parameters from EM algorithm immediately before breaking for convergence
