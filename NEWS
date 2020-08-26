@@ -27,3 +27,6 @@ Log of changes to SQUAREM
 
   o   	June 04, 2020
 	- Modified the code to output updated parameters from EM algorithm immediately before breaking for convergence
+
+  o   	August 19, 2020
+	- Fixed a couple of lines in squarem2() to output updated parameters from EM algorithm immediately before breaking for convergence - thanks to Dan Schaid (Mayo) for pointing this out
