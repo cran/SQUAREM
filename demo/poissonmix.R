@@ -68,7 +68,19 @@ pf2
 #######This is a speed up of a factor of 40.  
 
 
+poissmix.loglik.max <- function(p, y) {
+  i <- 0:(length(y) - 1)
+  loglik <- y * log(p[1] * exp(-p[2]) * p[2]^i/exp(lgamma(i + 1)) + 
+                      (1 - p[1]) * exp(-p[3]) * p[3]^i/exp(lgamma(i + 1)))
+  return (sum(loglik))
+}
 
+#####---------------------------------------------------------------###########
+# Showing how to *maximize* log-likelihood
+# Use actual log-likleihood and set minimize = FALSE
+pf3 <- squarem(p = p0, y = y, fixptfn = poissmix.em, objfn = poissmix.loglik.max, 
+               control = list(tol = tol, minimize=FALSE))
+pf3
 
 
 

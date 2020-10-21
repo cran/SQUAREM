@@ -20,7 +20,7 @@ squarem <- function(par, fixptfn, objfn, ... , control=list()) {
 # method = 1, 2, or 3, indicating the type of steplength to be used
 #
 #
-control.default <- list(K = 1, method=3, square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1,
+control.default <- list(K = 1, method=3, minimize=TRUE, square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1,
 	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 namc <- names(control)
 if (!all(namc %in% names(control.default))) 
@@ -61,7 +61,7 @@ squarem1 <- function(par, fixptfn, objfn, ... , control=list()) {
 # objfn = underlying objective function which is minimized at x*
 #
 #
-control.default <- list(K=1, square=TRUE, method=3, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
+control.default <- list(K=1, square=TRUE, minimize=TRUE, method=3, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
 	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
@@ -81,6 +81,7 @@ ctrl <- modifyList(control.default, control)
 #
     method <- ctrl$method
     maxiter <- ctrl$maxiter
+    minimize <- ctrl$minimize
     tol <- ctrl$tol
     step.min <- ctrl$step.min0
     step.max0 <- ctrl$step.max0
@@ -90,7 +91,7 @@ ctrl <- modifyList(control.default, control)
     trace <- ctrl$trace
     intermed <- ctrl$intermed
 
-if (trace) cat("Squarem-1 \n")
+if (trace) cat("Squarem-1 \n ")
 
 if (missing(objfn)) stop("\n squarem2 should be used if objective function is not available \n\n")
 
@@ -145,8 +146,8 @@ while (feval < maxiter) {
 			lnew <- try(objfn(p.new, ...), silent=TRUE)
 			leval <- leval + 1
 		} else lnew <- lold
-		if (inherits(lnew, "try-error") | is.nan(lnew) | 
-		(lnew > lold + objfn.inc)) {
+		non.monotone <- if (minimize) lnew > lold + objfn.inc else lnew < lold - objfn.inc
+		if (inherits(lnew, "try-error") | is.nan(lnew) | non.monotone) {
 			p.new <- p2
 			lnew <- try(objfn(p2, ...), silent=TRUE)
 			leval <- leval + 1
@@ -186,7 +187,7 @@ squarem2 <- function(par, fixptfn, ... , control=list() ) {
 #
 # See Varadhan and Roland (Scandinavian J Statistics 2008)
 #
-control.default <- list(K=1, square=TRUE, method=3, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
+control.default <- list(K=1, square=TRUE, minimize=TRUE, method=3, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
 	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
@@ -291,7 +292,7 @@ cyclem1 <- function(par, fixptfn, objfn, control=list(), ...) {
 # for which the solution: F(x*) = x* is sought
 # objfn = underlying objective function which is minimized at x*
 # 
-control.default <- list(K=2, method="rre", square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
+control.default <- list(K=2, method="rre", minimize=TRUE, square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
 	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
@@ -403,7 +404,9 @@ while (feval < maxiter & res > tol) {
 		
 	lnew <- try(objfn(pnew, ...), silent=TRUE)
 	leval <- leval + 1
-	if (inherits(lnew, "try-error") | is.nan(lnew) | (lnew > lold + objfn.inc)) {
+	non.monotone <- if(ctrl$minimize) lnew > lold+objfn.inc else lnew < lold-objfn.inc
+	
+	if (inherits(lnew, "try-error") | is.nan(lnew) | non.monotone) {
 		pnew <- p[, ncol(p)]
 		res <- sqKp1
 		extrap <- FALSE
@@ -432,7 +435,7 @@ cyclem2 <- function(par, fixptfn, control=list(), ...) {
 # for which the solution: F(x*) = x* is sought
 # method = reduced-rank or minimal-polynomial extrapolation
 #
-control.default <- list(K=2, method="rre", square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
+control.default <- list(K=2, method="rre", minimize=TRUE, square=TRUE, step.min0=1, step.max0=1, mstep=4, kr=1, objfn.inc=1, 
 	tol=1.e-07, maxiter=1500, trace=FALSE, intermed=FALSE)
 
 namc <- names(control)
@@ -604,4 +607,3 @@ return(list(par=par, value.objfn=loglik.best, fpevals=iter, objfevals = objeval,
 }
 
 ###################################################################
-

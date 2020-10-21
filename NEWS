@@ -30,3 +30,8 @@ Log of changes to SQUAREM
 
   o   	August 19, 2020
 	- Fixed a couple of lines in squarem2() to output updated parameters from EM algorithm immediately before breaking for convergence - thanks to Dan Schaid (Mayo) for pointing this out
+	
+	o   October 21, 2020
+	- Added the option to either "minimize"" or "maximize" the objective function
+	- Control parameter `minimize' can be set to TRUE (for minimization) or FALSE (for maximization)
+	

@@ -130,6 +130,21 @@ factor.loglik <- function(param, cyy){
         return(-loglik)
         ###the negative log-likelihood is returned
 }
+#####---------------------------------------------------------------###########
+factor.loglik.max <- function(param, cyy){
+  ###extract beta matrix and tau2 from param
+  beta.vec <- param[1:36]
+  beta.mat <- matrix(beta.vec, 4, 9)
+  tau2 <- param[37:45]
+  tau2.mat <- diag(tau2)
+  
+  Sig <- tau2.mat + t(beta.mat) %*% beta.mat
+  ##suppose n=145 since this does not impact the parameter estimation
+  loglik <- -145/2 * log(det(Sig)) - 145/2 * sum(diag(solve(Sig, cyy)))
+  return(loglik)
+  ###the original log-likelihood is returned
+}
+
 
 #####---------------------------------------------------------------###########
 #####################################EM Algorithm##############################
@@ -164,9 +179,17 @@ f3$fpevals
 system.time(f4 <- squarem(par = param.start, cyy = cyy, 
                           fixptfn = factor.ecme, 
                           objfn = factor.loglik, 
-                          control = list(tol = 10^(-8))))
+                          control = list(tol = 10^(-8), trace=TRUE)))
 f4$fpevals
 
+
+#####---------------------------------------------------------------###########
+# Showing how to *maximize* log-likelihood
+system.time(f5 <- squarem(par = param.start, cyy = cyy, 
+                          fixptfn = factor.ecme, 
+                          objfn = factor.loglik.max, 
+                          control = list(tol = 10^(-8), trace=TRUE, minimize=FALSE)))
+f5$fpevals
 
 
 

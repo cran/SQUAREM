@@ -25,18 +25,11 @@ Fixed-Point Iterations}
       In the case of EM algorithm, \eqn{F}{F} defines a single E and M step.} 
 
     \item{objfn}{This is a scalar function, \eqn{L}{L}, that denotes 
-      a ''merit'' function which attains its local minimum at the fixed-point 
-      of \eqn{F}{F}.  This function should accept a parameter vector as 
-      input and should return a scalar value.  In the EM algorithm, the merit 
-      function \eqn{L}{L} is the **negative of log-likelihood**. In some problems, a natural 
-      merit function may not exist, in which case the algorithm works with 
-      only \code{fixptfn}. The merit function function \code{objfn} does not 
-      have to be specified, even when a natural merit function is available, 
-      especially when its computation is expensive.} 
+      a ''merit'' function which attains its local maximum or minimum at the fixed          -point of \eqn{F}{F}. Also see the control parameter \code{minimize} which              determines whether the objective function is minimized or maximized. The               objective function should accept a parameter vector as input and should return a       scalar value.  In the EM algorithm, the merit function \eqn{L}{L} is the either        log-likelihood or its negative. In someproblems, a natural merit function may not       exist, in which case the algorithm works with only \code{fixptfn}. The merit           function function \code{objfn} does not have to be specified, even when a natural       merit function is available, especially when its computation is expensive.} 
 
     \item{control}{A list of control parameters specifing any changes to 
-      default values of algorithm control parameters.  Full names of control list elements must be specified, otherwise, user-specifications are ignored.  
-	See *Details*.}
+      default values of algorithm control parameters.  Full names of control list            elements must be specified, otherwise, user-specifications are ignored.  
+  	See *Details*.}
     \item{...}{Arguments passed to \code{fixptfn} and  \code{objfn}.}
 }
 
@@ -68,6 +61,7 @@ Fixed-Point Iterations}
 Default values of \code{control} are:
     \code{K=1},
     \code{method=3}, 
+    \code{minimize=TRUE},
     \code{square=TRUE}, 
     \code{step.min0=1}, 
     \code{step.max0=1}, 
@@ -94,7 +88,9 @@ Default values of \code{control} are:
       or \code{''MPE''}.  These correspond to the reduced-rank extrapolation 
       or squared minimal=polynomial extrapolation (See Roland, Varadhan, and 
       Frangakis (2007)).  Default is ''RRE''.}
-\describe{
+      
+\item{\code{minimize}}{A logical variable.  By default it is set to \code{TRUE} for minimization of the objective function. If the objective function is to be maximized, which is commonly the case for likelihood estimation, it should be changed to \code{FALSE}.}
+
 	\item{\code{square}}{A logical variable indicating whether or not a squared 
 	  extrapolation scheme should be used.  Our experience is that the 
 	  squared extrapolation schemes are faster and more stable than the 
@@ -129,7 +125,6 @@ Default values of \code{control} are:
 	  Default is \code{1.e-07}.}
 	\item{\code{maxiter}}{An integer denoting the maximum limit on the number 
 	  of evaluations of  \code{fixptfn}, \eqn{F}{F}.  Default is 1500.}
-	}
 \item{\code{trace}}{A logical variable denoting whether some of the intermediate 
       results of iterations should be displayed to the user.  
       Default is \code{FALSE}.}
@@ -231,9 +226,28 @@ c(pf1$fpeval, pf2$fpeval, pf3$fpeval, pf4$fpeval,
 c(pf1$objfeval, pf2$objfeval, pf3$objfeval, pf4$objfeval, 
   pf5$objfeval, pf6$objfeval, pf7$objfeval)
 
+###############################################################
+# Example 2: Same as above (i.e. Poisson mixture)
+# but now showing how to "maximize" the log-likelihood
+
+poissmix.loglik.max <- function(p,y) {
+# Objective function which is to be *maximized* 
+# Log-likelihood of binary poisson mixture
+i <- 0:(length(y)-1)
+loglik <- y*log(p[1]*exp(-p[2])*p[2]^i/exp(lgamma(i+1)) + 
+		(1 - p[1])*exp(-p[3])*p[3]^i/exp(lgamma(i+1)))
+return ( sum(loglik) )
+}
+
+# Maximizing the log-likelihood
+# Note:  the control parameter `minimize' is set to FALSE
+#
+pf.max <- squarem(par=p0, y=y, fixptfn=poissmix.em, objfn=poissmix.loglik.max, 
+               control=list(tol=tol, minimize=FALSE))
+pf.max
 
 ##############################################################################
-# Example 2:  Accelerating the convergence of power method iteration 
+# Example 3:  Accelerating the convergence of power method iteration 
 #  for finding the dominant eigenvector of a matrix 
 
 power.method <- function(x, A) {
