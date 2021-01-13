@@ -175,7 +175,7 @@ while (feval < maxiter) {
 
 rownames(p.inter) <- NULL
 if (!intermed) return(list(par=p, value.objfn=lold, iter= iter, fpevals=feval, objfevals = leval, convergence=conv))
-   else return(list(par=p, value.objfn=lold, iter= iter, fpevals=feval, objfevals = leval, convergence=conv, p.inter=p.inter))
+   else return(list(par=p, value.objfn=lold, iter= iter, fpevals=feval, objfevals = leval, convergence=conv, p.intermed=p.inter))
 }
 ###################################################################
 squarem2 <- function(par, fixptfn, ... , control=list() ) {
@@ -214,11 +214,13 @@ ctrl <- modifyList(control.default, control)
     mstep <- ctrl$mstep
     trace <- ctrl$trace
 if (trace) cat("Squarem-2 \n")
-
+    intermed <- ctrl$intermed
+    
 iter <- 1
 feval <- 0
 kount <- 0
 conv <- TRUE
+p.inter <- rep(NA, length(par)+1)
 
 while (feval < maxiter) {
 	extrap <- TRUE
@@ -227,6 +229,7 @@ while (feval < maxiter) {
 	if (inherits(p1, "try-error") | any(is.nan(unlist(p1)))) break
 	q1 <- p1 - par
 	sr2 <- crossprod(q1)
+	p.inter <- rbind(p.inter, c(par, sqrt(sr2)))
 	if (sqrt(sr2) < tol) {par <- p1; break}
 
 	p2 <- try(fixptfn(p1, ...),silent=TRUE)
@@ -273,9 +276,12 @@ while (feval < maxiter) {
 	par <- p.new
 	iter <- iter+1
 }
-	if (feval >= maxiter) conv <- FALSE
+p.inter <- p.inter[-1, ]
+if (feval >= maxiter) conv <- FALSE
 
-return(list(par=par, value.objfn=NA, iter = iter, fpevals=feval, objfevals = 0, convergence=conv))
+if (intermed) return(list(par=par, value.objfn=NA, iter = iter, fpevals=feval, objfevals = 0, 
+                          convergence=conv, p.intermed=p.inter))
+else return(list(par=par, value.objfn=NA, iter = iter, fpevals=feval, objfevals = 0, convergence=conv))
 
 }
 #######################################################################
@@ -564,7 +570,7 @@ return(list(par=par, value.objfn=NA, iter = iter, fpevals=feval, objfevals = 0, 
 #
 fpiter <- function(par, fixptfn, objfn=NULL, control=list( ), ...){
 
-control.default <- list(tol=1.e-07, maxiter=5000, trace=FALSE)
+control.default <- list(tol=1.e-07, maxiter=5000, trace=FALSE, intermed=FALSE)
 namc <- names(control)
 if (!all(namc %in% names(control.default))) 
     stop("unknown names in control: ", namc[!(namc %in% names(control.default))])
@@ -578,7 +584,8 @@ ctrl <- modifyList(control.default, control)
     tol <- ctrl$tol
     maxiter <- ctrl$maxiter
     trace <- ctrl$trace
-
+    intermed <- ctrl$intermed
+    
 if (trace) cat("fpiter \n")
 
 iter <- 1
@@ -586,10 +593,13 @@ resid <- rep(NA,1)
 objeval <- 0
 conv <- FALSE
 
+if(intermed) p.inter <- rep(NA, 1+length(par))
+  
 while (iter < maxiter) {
 
 p.new <- fixptfn(par, ...)
 res <- sqrt(crossprod(p.new - par))
+if(intermed) p.inter <- rbind(p.inter, c(par, res))
 
 if ( res < tol) {conv <- TRUE; break}
 
@@ -600,10 +610,13 @@ if (trace) {
   par <- p.new
 iter <- iter+1
 }
-
+if(intermed) p.inter <- p.inter[-1,]
 loglik.best <-  if (!is.null(objfn)) objfn(par, ...) else NA
 
-return(list(par=par, value.objfn=loglik.best, fpevals=iter, objfevals = objeval, convergence=conv))
+if(!intermed) return(list(par=par, value.objfn=loglik.best, fpevals=iter, objfevals = objeval, 
+            convergence=conv))
+else return(list(par=par, value.objfn=loglik.best, fpevals=iter, objfevals = objeval, 
+                         p.intermed=p.inter, convergence=conv))
 }
 
 ###################################################################

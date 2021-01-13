@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+%\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{color} %% red, green, and blue (for screen display) and cyan, magenta, and yellow
+\definecolor{Navy}{rgb}{0,0,0.8}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, urlcolor={Navy}, linkcolor={Navy}, citecolor={Navy}}
+
+\parskip 7.2pt
+
+\newcommand{\compresslist}{%
+%\setlength{\itemsep}{1pt}%
+\setlength{\itemsep}{0pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+
+\newcommand{\pb}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\bea}{\begin{align*}}
+\newcommand{\eea}{\end{align*}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\renewcommand{\baselinestretch}{1}
+
+\title{\texttt{SQUAREM}: Accelerating the Convergence of EM, MM and Other Fixed-Point Algorithms}
+\author{Ravi Varadhan}
+\date{}
+\usepackage{Sweave}
+\begin{document}
+
+%\VignetteIndexEntry{SQUAREM Tutorial}
+%\VignetteDepends{setRNG}
+%\VignetteKeywords{EM algorithm, fixed-point iteration, acceleration, extrapolation}
+%\VignettePackage{SQUAREM}
+
+\maketitle
+
+\section{Overview of SQUAREM}
+''SQUAREM'' is a package intended for accelerating slowly-convergent contraction mappings.  It can be used for accelerating the convergence of slow, linearly convergent contraction mappings such as the EM (expectation-maximization) algorithm, MM (majorize and minimize) algorithm, and other nonlinear fixed-point iterations such as the power method for finding the dominant eigenvector.  It uses a novel approach callled squared extrapolation method (SQUAREM) that was proposed in Varadhan and Roland (Scandinavian Journal of Statistics, 35: 335-353), and also in Roland, Vardhan, and Frangakis (Numerical Algorithms, 44: 159-172).
+
+The functions in this package are made available with:
+
+\begin{Schunk}
+\begin{Sinput}
+> library("SQUAREM") 

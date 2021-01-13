@@ -47,7 +47,7 @@ Fixed-Point Iterations}
   indicates successful convergence, whereas \code{1} denotes failure to 
   converge.}
 
-\item{p.inter}{A matrix where each row corresponds to parameters at each iteration, 
+\item{p.intermed}{A matrix where each row corresponds to parameters at each iteration, 
       along with the corresponding log-likelihood value. This object is returned only when 
       the control parameter \code{intermed} is set to \code{TRUE}.  It is not returned when 
       \code{objfn} is not specified.}
@@ -129,10 +129,9 @@ Default values of \code{control} are:
       results of iterations should be displayed to the user.  
       Default is \code{FALSE}.}
 \item{\code{intermed}}{A logical variable denoting whether the intermediate 
-      results of iterations should be returned. If set to \code{TRUE}, the function 
+      results of iterat ions should be returned. If set to \code{TRUE}, the function 
       will return a matrix where each row corresponds to parameters at each iteration, 
-      along with the corresponding log-likelihood value.  This option is inactive when 
-      \code{objfn} is not specified. 
+      along with the corresponding log-likelihood value.  When the code{objfn} is not specified it will return the fixed-point residual instead of the objective function values. 
       Default is \code{FALSE}.}
 }
 }

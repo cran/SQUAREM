@@ -50,21 +50,25 @@
 \code{control} is list of control parameters for the algorithm.  
 
 \describe{
-\code{control = list(tol = 1.e-07, maxiter = 1500, trace = FALSE)}
+\code{control = list(tol = 1.e-07, maxiter = 1500, trace = FALSE, intermed=FALSE)}
 
-    \code{tol}{  A small, positive scalar that determines when iterations 
+    \code{tol}{ - a small, positive scalar that determines when iterations 
        should be terminated.  Iteration is terminated when 
        \eqn{||x_k - F(x_k)|| \leq tol}{abs(x[k] - F(x[k]) <= tol}.  
        Default is \code{1.e-07}.}
 
-    \code{maxiter}{  An integer denoting the maximum limit on the number of 
+    \code{maxiter}{ - an integer denoting the maximum limit on the number of 
        evaluations of  \code{fixptfn}, \eqn{F}{F}.  Default is \code{1500}.}
 
-    \code{trace}{  A logical variable denoting whether some of the intermediate 
+    \code{trace}{ - a logical variable denoting whether some of the intermediate 
        results of iterations should be displayed to the user.  
        Default is \code{FALSE}.} 
+       
+    \code{intermed}}{ - a logical variable denoting whether the intermediate 
+      results of iterations should be returned. If set to \code{TRUE}, the function 
+      will return a matrix where each row corresponds to parameters at each iteration, 
+      along with the corresponding fixed-point residual value. Default is \code{FALSE}.}
   }
-}
 
 \seealso{
   \code{\link{squarem}}
@@ -101,7 +105,7 @@ poissmix.dat <- data.frame(death=0:9, freq=c(162,267,271,185,111,61,27,8,3,1))
 y <- poissmix.dat$freq
 tol <- 1.e-08
 
-# Use a preset seed so the example is reproducable. 
+# Use a preset seed so the example is reproducible. 
 require("setRNG")
 old.seed <- setRNG(list(kind="Mersenne-Twister", normal.kind="Inversion",
     seed=54321))

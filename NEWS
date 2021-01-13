@@ -29,9 +29,15 @@ Log of changes to SQUAREM
 	- Modified the code to output updated parameters from EM algorithm immediately before breaking for convergence
 
   o   	August 19, 2020
-	- Fixed a couple of lines in squarem2() to output updated parameters from EM algorithm immediately before breaking for convergence - thanks to Dan Schaid (Mayo) for pointing this out
+	- Fixed a couple of lines in squarem2() to output updated parameters from EM algorithm 
+	immediately before breaking for convergence - thanks to Dan Schaid (Mayo) for pointing this out
 	
 	o   October 21, 2020
 	- Added the option to either "minimize"" or "maximize" the objective function
 	- Control parameter `minimize' can be set to TRUE (for minimization) or FALSE (for maximization)
 	
+	o   January 12, 2021
+	- Added the option to output the residuals when objective funcion is NOT given
+	- also added this option to `fpiter'
+	- In order to use this option, the user has to set `intermed=TRUE'
+	- this option is not available for higher-order squarem algorithms 

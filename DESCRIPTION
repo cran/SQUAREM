@@ -1,6 +1,6 @@
 Package: SQUAREM
-Version: 2020.5
-Date: 2020-10-21
+Version: 2021.1
+Date: 2021-01-12
 Title: Squared Extrapolation Methods for Accelerating EM-Like Monotone
         Algorithms
 Description: Algorithms for accelerating the convergence of slow,
@@ -19,5 +19,5 @@ Maintainer: Ravi Varadhan <ravi.varadhan@jhu.edu>
 URL: https://coah.jhu.edu/people/Faculty_personal_Pages/Varadhan.html
 Repository: CRAN
 NeedsCompilation: no
-Packaged: 2020-10-21 20:02:12 UTC; rvaradhan
-Date/Publication: 2020-10-21 21:00:02 UTC
+Packaged: 2021-01-12 23:59:02 UTC; rvaradhan
+Date/Publication: 2021-01-13 06:40:10 UTC
